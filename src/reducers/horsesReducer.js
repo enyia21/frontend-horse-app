@@ -1,16 +1,20 @@
-const initialState = {
+const horsesReducer = (state={
     loading: true, 
-    horses: []
-}
-
-function horseReducer(state=initialState, action) {
+    horses: [],
+    selectedHorse: {}
+}, action) =>{
     switch(action.type){
         case "LOADING":
             return {...state, loading: true}
         case "LOAD_HORSES":
-            debugger;
             return {...state, horses: action.payload, loading: false}
+        case "LOAD_FULL_HORSE": 
+            return {...state, selectedHorse: action.payload, loading: false}
+        case "UNLOAD_HORSE":
+            return {...state, selectedHorse: action.payload, loading: false}
+            
         default: 
-            return state;
+            return state
     }
 }
+export default horsesReducer;

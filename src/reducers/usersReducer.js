@@ -4,7 +4,7 @@ const initialState = {
     current_user: {}
 }
 
-function usersReducer (state=initialState, action){
+const usersReducer = (state=initialState, action) => {
     switch(action.type){
         case "LOADING_USERS":
             return {...state, loading: true}
@@ -19,6 +19,7 @@ function usersReducer (state=initialState, action){
                 loading: false
             }
         default: 
-            return state;
+            return state
     }
 }
+export default usersReducer

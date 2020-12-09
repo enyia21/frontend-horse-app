@@ -14,20 +14,20 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import {createStore, compose, applyMiddleware} from 'redux'
 
 //created reducer
-// import { reducer } from './reducers/reducer'
+import  reducer  from './reducers/reducer'
 
 //built the store
-// const store = createStore(reducer, compose(
-//   applyMiddleware(thunk),
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-// )
+const store = createStore(reducer, compose(
+  applyMiddleware(thunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+)
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      {/* <Provider store={store}>
-      </Provider> */}
+      <Provider store={store}>
         <App />
+      </Provider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
