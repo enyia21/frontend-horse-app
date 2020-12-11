@@ -12,11 +12,10 @@ import {fetchHorses} from './actions/horseActionCreators'
 import { connect } from 'react-redux'
 // import Horses from './components/Horses';
 import UsersForm from './containers/user/UserForm'
-import NavBar from './components/navigation/NavBar'
 import Login from './containers/user/Login'
 import Home from './Home'
 import LoginSignupFormToggle from './containers/user/LoginSignupFormToggle';
-
+import ButtonAppBar from './components/navigation/ButtonAppBar'
 class App extends Component{
 
   //I'm going to add an if to the equation to render the site after
@@ -27,7 +26,7 @@ class App extends Component{
   render(){
       return (
         <>
-          <NavBar />
+          <ButtonAppBar />
           <Switch>
               <Route exact path="/horses" component={HorsesPage} />
               <Route exact path="/horses/:id" component={HorsePage} />
