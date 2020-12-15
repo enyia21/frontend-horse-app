@@ -35,7 +35,7 @@ export default function ButtonAppBar() {
           </Typography>   
             <Button color="primary"><NavLink to='/'>Home</NavLink></Button>
             <Button color="primary"><NavLink to='/horses'>Horses</NavLink></Button>
-            <Button color="primary"><NavLink to='/users/signin'>Log in/Sign Up</NavLink></Button>
+            <Button color="primary"><NavLink to='/login'>Log in/Sign Up</NavLink></Button>
         </Toolbar>
       </AppBar>
     </div>

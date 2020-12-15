@@ -19,6 +19,8 @@ const usersReducer = (state=initialState, action) => {
                 current_user: action.payload,
                 loading: false
             }
+        case 'LOGOUT_USER':
+            return {...state, current_user: {}, loading: false}
         case 'TOGGLE_SIGNUP':
             return {...state, signIn: !state.signIn}
         default: 

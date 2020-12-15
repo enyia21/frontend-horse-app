@@ -11,10 +11,9 @@ import {fetchHorses} from './actions/horseActionCreators'
 //thunk
 import { connect } from 'react-redux'
 // import Horses from './components/Horses';
-import UsersForm from './containers/user/UserForm'
+import SignupForm from './containers/user/SignupForm'
 import Login from './containers/user/Login'
 import Home from './Home'
-import LoginSignupFormToggle from './containers/user/LoginSignupFormToggle';
 import ButtonAppBar from './components/navigation/ButtonAppBar'
 class App extends Component{
 
@@ -30,8 +29,7 @@ class App extends Component{
           <Switch>
               <Route exact path="/horses" component={HorsesPage} />
               <Route exact path="/horses/:id" component={HorsePage} />
-              <Route exact path='/users/signin' component={LoginSignupFormToggle} />
-              <Route exact path='/users/new' component={UsersForm} />
+              <Route exact path='/users/new' component={SignupForm} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/' component={Home} />
           </Switch>

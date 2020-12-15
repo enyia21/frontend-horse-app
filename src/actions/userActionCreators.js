@@ -14,6 +14,7 @@ export const fetchUsers = () => {
 }
 
 export const fetchLoginUser = (user_login) =>  {
+    debugger;
     const { username, password} = user_login;
     const login_params = {username: username, password: password}
     return (dispatch) => {
@@ -29,7 +30,7 @@ export const fetchLoginUser = (user_login) =>  {
         .then ( user => {
             debugger;
             if (!user.errors){
-                dispatch({type: "LOAD_USER", user})
+                dispatch({type: "LOAD_USER", payload: user})
             }else {
                 alert(user.errors)
             }
