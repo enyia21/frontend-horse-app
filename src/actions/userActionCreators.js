@@ -14,11 +14,11 @@ export const fetchUsers = () => {
 }
 
 export const fetchLoginUser = (user_login) =>  {
-    debugger;
     const { username, password} = user_login;
     const login_params = {username: username, password: password}
+    debugger
     return (dispatch) => {
-        // dispatch(LOADING);
+        dispatch(LOADING);
         fetch(BASE_URL + '/login', {
             method: 'Post',
             headers: {
@@ -27,12 +27,13 @@ export const fetchLoginUser = (user_login) =>  {
             body: JSON.stringify(login_params),
         })
         .then(resp => resp.json())
-        .then ( user => {
-            debugger;
-            if (!user.errors){
-                dispatch({type: "LOAD_USER", payload: user})
+        .then ( response => {
+            
+            if (!response.errors){
+                localStorage.token = response.token;
+                dispatch({type: "LOAD_USER", payload: response.user})
             }else {
-                alert(user.errors)
+                alert(response.errors)
             }
         })
     }
@@ -40,7 +41,6 @@ export const fetchLoginUser = (user_login) =>  {
 
 export const fetchCreateNewUser = (new_user) => {
     const user_params = {user: new_user}
-    debugger;
     return (dispatch)=>{
         fetch(BASE_URL + '/users', {
             method: 'Post',
@@ -50,14 +50,35 @@ export const fetchCreateNewUser = (new_user) => {
             body: JSON.stringify(user_params),
         })
         .then(resp => resp.json())
-        .then (user => {
-            if(!user.errors){
-                dispatch({type: "CREATE_USER", user})
+        .then (response => {
+            if(!response.errors){
+                localStorage.token = response.token;
+                dispatch({type: "CREATE_USER", payload: response.user})
             }else{
-                alert(user.errors)
+                alert(response.errors)
             }
         })
     }
 }
 
-export const toggleSignInOrUp = () => ({type: "TOGGLE_SIGNUP"})
+
+export const autoLogin = () => {
+        return (dispatch) => {
+        dispatch(LOADING);
+        fetch(BASE_URL + '/autoLogin', {
+            method: 'Post',
+            headers: {
+                "AUTHORIZATION": localStorage.token
+            }
+        })
+        .then(resp => resp.json())
+        .then(response => {
+            if (!response.errors){
+                dispatch({type: "LOAD_USER", payload: response.user})
+            }else{
+                alert(response.errors)
+            }
+        })
+    }
+}
+// export const toggleSignInOrUp = () => ({type: "TOGGLE_SIGNUP"})

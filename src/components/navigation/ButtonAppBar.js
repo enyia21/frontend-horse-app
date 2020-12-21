@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   const classes = useStyles();
-
+  
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -31,11 +31,11 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            Horse ISO App
           </Typography>   
             <Button color="primary"><NavLink to='/'>Home</NavLink></Button>
             <Button color="primary"><NavLink to='/horses'>Horses</NavLink></Button>
-            <Button color="primary"><NavLink to='/login'>Log in/Sign Up</NavLink></Button>
+            {props.loggedIn ? <><Button color="primary"><NavLink to='/horses/new'>Register Horse</NavLink></Button> <Button color="primary"><NavLink to='/logout'>LogOut</NavLink></Button></> : <Button color="primary"><NavLink to='/login'>Log in/Sign Up</NavLink></Button> }
         </Toolbar>
       </AppBar>
     </div>

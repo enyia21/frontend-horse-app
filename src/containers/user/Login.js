@@ -17,7 +17,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
-
+import {Redirect} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 // class Login extends Component {
   //     state = {
 //         username: "",
@@ -100,6 +101,7 @@ function Login(){
 
 
   const dispatch = useDispatch()
+  const loggedIn = useSelector(state => state.loggedIn)
 
   const handleOnChange = (e) => {
     const {name, value} = e.target
@@ -108,81 +110,81 @@ function Login(){
       [name]:value
     })   
   }
-
     const handleOnSubmit = (e) => {
       e.preventDefault()
-      debugger;
+      debugger
+      
       dispatch(fetchLoginUser(values))
-    }
 
-    return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form} onSubmit={handleOnSubmit} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="User Name"
-              name="username"
-              value={values.username}
-              onChange = {handleOnChange}
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              onChange = {handleOnChange}
-              value={values.password}              
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+    }
+      return (
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <form className={classes.form} onSubmit={handleOnSubmit} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="User Name"
+                name="username"
+                value={values.username}
+                onChange = {handleOnChange}
+                autoComplete="username"
+                autoFocus
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                onChange = {handleOnChange}
+                value={values.password}              
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link variant="body2" href="/users/new">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link variant="body2" href="/users/new">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Container>
-    );
-  }
-export default connect(null, { fetchLoginUser })(Login)
+            </form>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+        </Container>
+      );
+    }
+export default Login

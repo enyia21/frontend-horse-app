@@ -12,8 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {fetchCreateNewUser} from '../../actions/userActionCreators'
+import {fetchUpdateHorse} from '../../actions/horseActionCreators'
 import {useDispatch} from 'react-redux'
+import {Redirect} from 'react-router'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -26,15 +27,18 @@ function Copyright() {
     </Typography>
   );
 }
-const initialSignup = {
-  username: "",
-  email: "",
-  password: "",
-  password_confirmation: "",
-  first_name: "",
-  last_name: "",
-  phone_number: "",
-  address: ""  
+const initialHorseInfo = {
+    id: localStorage.id,
+    name: localStorage.name,
+    location: localStorage.location,
+    gender: localStorage.gender,
+    size: localStorage.size,
+    color: localStorage.color,
+    foal_date: localStorage.foal_date,
+    profile_picture: localStorage.profile_picture,
+    video: localStorage.video, 
+    temperment: localStorage.temperment,
+    description: localStorage.description
 }
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -56,21 +60,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
-  const classes = useStyles();
-  const [values, setValues] = useState(initialSignup)
-  const handleOnChange = (e) => {
-    const {name, value} = e.target
-    setValues({
-      ...values,
-      [name]:value
-    })   
-  }
-
-  const dispatch = useDispatch()
-  const handleOnSubmit = (e) => {
+export default function HorseForm(props) {
+    const classes = useStyles();
+    const [values, setValues] = useState(initialHorseInfo)
+    debugger
+    const handleOnChange = (e) => {
+        const {name, value} = e.target
+        setValues({
+            ...values,
+            [name]:value
+        })
+    }
+    // const loggedInUser = useSelector(state => state.app_user)
+    const dispatch = useDispatch()
+    const handleOnSubmit = (e) => {
     e.preventDefault()
-    dispatch(fetchCreateNewUser(values))
+    props.user ? (values.user_id = `${props.user.id}`) : (values.user_id="0")
+    values.breed_id = `${(1 + Math.floor((Math.random()*1500)))}`
+    dispatch(fetchUpdateHorse(values))
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -80,34 +87,35 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Update Horse
         </Typography>
         <form className={classes.form} onSubmit={handleOnSubmit} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
-                autoComplete="fname"
-                name="first_name"
+                autoComplete="hname"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
-                id="first_name"
-                label="First Name"
+                id="name"
+                label="name"
                 onChange={handleOnChange}
-
+                value={values.name}
                 autoFocus
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
-                id="last_name"
-                label="Last Name"
-                name="last_name"
+                id="location"
+                label="Location"
+                name="location"
+                value={values.location}
                 onChange={handleOnChange}
-                autoComplete="lname"
+                autoComplete="location"
               />
             </Grid>
             <Grid item xs={12}>
@@ -115,11 +123,12 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
+                id="gender"
+                label="Gender"
+                name="gender"
+                value={values.gender}
                 onChange={handleOnChange}
-                autoComplete="email"
+                autoComplete="gender"
               />
             </Grid>
             <Grid item xs={12}>
@@ -127,11 +136,82 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="username"
-                label="User Name"
-                id="username"
+                name="color"
+                label="color"
+                id="color"
+                value={values.color}
                 onChange={handleOnChange}
-                autoComplete="username"
+                autoComplete="color"
+              />
+            </Grid>   
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="size"
+                label="Size"
+                id="size"
+                value={values.size}
+                type="number"
+                onChange={handleOnChange}
+                autoComplete="size"
+              />
+            </Grid>          
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="profile_picture"
+                label="Profile Picture"
+                type="profile_picture"
+                id="profile_picture"
+                value={values.profile_picture}
+                onChange={handleOnChange}
+                autoComplete="profile_picture"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="foal_date"
+                label="Foal Date"
+                type="date"
+                id="foal_date"
+                value={values.date}
+                onChange={handleOnChange}
+                autoComplete="foalDate"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="video"
+                label="Video"
+                type="text"
+                id="video"
+                value={values.video}
+                onChange={handleOnChange}
+                autoComplete="video"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="temperment"
+                label="Temperment"
+                type="test"
+                id="temperment"
+                value={values.temperment}
+                onChange={handleOnChange}
+                autoComplete="temperment"
               />
             </Grid>            
             <Grid item xs={12}>
@@ -139,51 +219,14 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
+                multiline
+                name="description"
+                label="Description"
+                type="text box"
+                id="description"
+                value={values.description}
                 onChange={handleOnChange}
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password_confirmation"
-                label="Password Confirmation"
-                type="password"
-                id="password_confirmation"
-                onChange={handleOnChange}
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="phone_number"
-                label="Phone Number"
-                type="phone_number"
-                id="phone_number"
-                onChange={handleOnChange}
-                autoComplete="phone_number"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="address"
-                label="Address"
-                type="address"
-                id="address"
-                onChange={handleOnChange}
-                autoComplete="address"
+                autoComplete="description"
               />
             </Grid>
             <Grid item xs={12}>
@@ -200,15 +243,8 @@ export default function SignUp() {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            Update Horse
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={5}>

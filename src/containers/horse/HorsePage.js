@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {fetchSelectedHorse, removeSelectedHorse} from '../../actions/horseActionCreators'
+import {fetchSelectedHorse, fetchRemoveHorse} from '../../actions/horseActionCreators'
 import HorseShow from '../../components/horse/HorseShow'
 class HorsePage extends Component {
     componentDidMount(){
@@ -13,7 +13,8 @@ class HorsePage extends Component {
         }else{
             return (
                 <div>
-                    <HorseShow horse={this.props.selectedHorse} key={this.props.selectedHorse.id}/>
+                    {/* Your selected Horse */}
+                    <HorseShow horse={this.props.selectedHorse} key={this.props.selectedHorse.id} user={this.props.user} id={this.props.selectedHorse.id} removeHorse={fetchRemoveHorse}/>
                 </div>
             )
         }
@@ -22,8 +23,9 @@ class HorsePage extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.horses.loading,
-        selectedHorse: state.horses.selectedHorse
+        selectedHorse: state.horses.selectedHorse,
+        user: state.users.app_user
     }
 }
 
-export default connect(mapStateToProps, {fetchSelectedHorse, removeSelectedHorse})(HorsePage)
+export default connect(mapStateToProps, {fetchSelectedHorse, fetchRemoveHorse})(HorsePage)
