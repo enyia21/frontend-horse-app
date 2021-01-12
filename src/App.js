@@ -24,9 +24,12 @@ class App extends Component{
   //horses have been loaded.  
   componentDidMount(){
     localStorage.token && this.props.autoLogin();
-    // this.props.fetchHorses()
+    this.props.fetchHorses()
   }
   render(){
+    if ((this.props.loading || this.props.loading===undefined) && (this.props.horses.length === 0)){
+      return <div>Loading...</div>
+    }else{
       return (
         <>
           <ButtonAppBar loggedIn={this.props.loggedIn}/>
@@ -42,14 +45,16 @@ class App extends Component{
           </Switch>
         </>
         )
-  }
+  }   
+}
 }
 const mapStateToProps = state => {
   return {
+    loading: state.horses.loading,
     loggedIn: state.users.loggedIn,
     user: state.users.app_user,
     horses: state.horses.horses
   }
 }
 
-export default connect(mapStateToProps, {autoLogin })(App)
+export default connect(mapStateToProps, {autoLogin, fetchHorses })(App)

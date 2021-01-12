@@ -4,13 +4,11 @@ import Horses from '../../components/horse/Horses'
 import {fetchHorses} from '../../actions/horseActionCreators'
 import {fetchRemoveHorse} from '../../actions/horseActionCreators'
 class HorsesPage extends Component {
-    componentDidMount(){
-    this.props.fetchHorses()
-    }
+    // componentDidMount(){
+    // this.props.fetchHorses()
+    // }
     render() {
-        if (this.props.loading || this.props.loading===undefined){
-            return <div>Loading...</div>
-        }else{
+
             return (
                 <div>
                     <h2>Horses</h2>
@@ -18,7 +16,6 @@ class HorsesPage extends Component {
                 </div>
             );
         }
-    }
 }
 
 const mapStateToProps = (state) => {

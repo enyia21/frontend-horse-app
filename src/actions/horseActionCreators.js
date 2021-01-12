@@ -54,7 +54,7 @@ export const fetchCreateNewHorse = (new_horse) => {
         .then(resp => resp.json())
         .then (response => {
             if(!response.errors){
-                dispatch({type: "CREATE_HORSE", payload: response.user})
+                dispatch({type: "CREATE_HORSE", payload: response})
             }else{
                 alert(response.errors)
             }

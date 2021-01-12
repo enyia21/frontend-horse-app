@@ -15,16 +15,16 @@ const HorseCard = ({horse, id, removeHorse, user}) => {
         localStorage.id = horse.id
         localStorage.name = horse.name
         localStorage.gender = horse.gender 
-         localStorage.size = horse.size
-         localStorage.color = horse.color
+        localStorage.size = horse.size
+        localStorage.color = horse.color
         localStorage.location = horse.location    
-         localStorage.foal_date = horse.foal_date
-         localStorage.profile_picture = horse.profile_picture
+        localStorage.foal_date = horse.foal_date
+        localStorage.profile_picture = horse.profile_picture
             
-         localStorage.video = horse.video
-         localStorage.temperment = horse.temperment
-         localStorage.description = horse.description
-         localStorage.user_id = horse.user.id
+        localStorage.video = horse.video
+        localStorage.temperment = horse.temperment
+        localStorage.description = horse.description
+        localStorage.user_id = horse.user.id
     }
 
     return (

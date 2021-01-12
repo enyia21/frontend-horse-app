@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import HorseCard from './components/horse/Horses'
+import {Horses} from './components/horse/Horses'
 import {fetchRemoveHorse} from './actions/horseActionCreators'
 import {fetchHorses} from './actions/horseActionCreators'
 class Home extends Component {
@@ -24,5 +24,10 @@ class Home extends Component {
         )
     }
 }
-
-export default connect(null, {fetchHorses, fetchRemoveHorse})(Home)
+const mapStateToProps = (state) => ({
+    loading: state.horses.loading,
+    horses: state.horses.horses,
+    user: state.users.app_user,
+    loggedIn: state.users.loggedIn
+})
+export default connect(mapStateToProps, {fetchHorses, fetchRemoveHorse})(Home)

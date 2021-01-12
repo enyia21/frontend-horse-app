@@ -8,6 +8,9 @@ const horsesReducer = (state={
             return {...state, loading: true}
         case "LOAD_HORSES":
             return {...state, horses: action.payload, loading: false}
+        case "CREATE_HORSE": 
+        debugger
+            return {...state, horses: [...state.horses, action.payload], loading: false }
         case "LOAD_FULL_HORSE": 
             return {...state, selectedHorse: action.payload, loading: false}
         case "UNLOAD_HORSE":
