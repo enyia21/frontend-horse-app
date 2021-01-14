@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {fetchCreateNewHorse} from '../../actions/horseActionCreators'
 import {useDispatch} from 'react-redux'
-import {Redirect} from 'react-router'
+import {useHistory} from 'react-router-dom'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function HorseForm(props) {
     const classes = useStyles();
-    
+    const history = useHistory();
     const [values, setValues] = useState(initialHorseInfo)
     const handleOnChange = (e) => {
         const {name, value} = e.target
@@ -74,9 +74,10 @@ export default function HorseForm(props) {
     const dispatch = useDispatch()
     const handleOnSubmit = (e) => {
     e.preventDefault()
-    props.user ? (values.user_id = `${props.user.id}`) : (values.user_id="0")
+    localStorage.user_id ? (values.user_id = `${localStorage.user_id}`) : (values.user_id="0")
     values.breed_id = `${(1 + Math.floor((Math.random()*1500)))}`
     dispatch(fetchCreateNewHorse(values))
+    history.push("/horses")
   }
   return (
     <Container component="main" maxWidth="xs">

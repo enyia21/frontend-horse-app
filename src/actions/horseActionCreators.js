@@ -21,7 +21,6 @@ export const fetchSelectedHorse = (id) => {
 }
 
 export const fetchRemoveHorse = (id) => {
-    debugger;
     return (dispatch) => {
         dispatch(LOADING);
         fetch(BASE_URL + '/horses/' + id, {
@@ -63,22 +62,22 @@ export const fetchCreateNewHorse = (new_horse) => {
 }
 
 export const fetchUpdateHorse = (update_horse) => {
-    debugger
     const horse_params = {horse: update_horse}
+    debugger
     return (dispatch)=>{
-        fetch(BASE_URL + `/horses/${update_horse.id}`, {
-            method: 'Patch',
+        fetch(BASE_URL + `/horses/${horse_params.horse.id}`, {
+            method: 'PUT',
             headers: {
+                "Access-Control-Allow-Origin": "*",
                 "Content-Type": 'application/json',
                 "AUTHORIZATION": localStorage.token
-
             },
             body: JSON.stringify(horse_params),
         })
         .then(resp => resp.json())
         .then (response => {
             if(!response.errors){
-                dispatch({type: "CREATE_HORSE", payload: response.user})
+                dispatch({type: "UPDATE_HORSE", payload: response})
             }else{
                 alert(response.errors)
             }

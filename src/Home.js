@@ -5,6 +5,7 @@ import {fetchRemoveHorse} from './actions/horseActionCreators'
 import {fetchHorses} from './actions/horseActionCreators'
 class Home extends Component {
     render() {
+        debugger;
         return (
             <>
                 <div>

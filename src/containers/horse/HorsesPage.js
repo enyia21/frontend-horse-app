@@ -4,9 +4,6 @@ import Horses from '../../components/horse/Horses'
 import {fetchHorses} from '../../actions/horseActionCreators'
 import {fetchRemoveHorse} from '../../actions/horseActionCreators'
 class HorsesPage extends Component {
-    // componentDidMount(){
-    // this.props.fetchHorses()
-    // }
     render() {
 
             return (

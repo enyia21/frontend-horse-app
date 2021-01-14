@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {fetchUpdateHorse} from '../../actions/horseActionCreators'
 import {useDispatch} from 'react-redux'
-import {Redirect} from 'react-router'
+import {useHistory} from 'react-router-dom'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -27,19 +27,7 @@ function Copyright() {
     </Typography>
   );
 }
-const initialHorseInfo = {
-    id: localStorage.id,
-    name: localStorage.name,
-    location: localStorage.location,
-    gender: localStorage.gender,
-    size: localStorage.size,
-    color: localStorage.color,
-    foal_date: localStorage.foal_date,
-    profile_picture: localStorage.profile_picture,
-    video: localStorage.video, 
-    temperment: localStorage.temperment,
-    description: localStorage.description
-}
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -61,23 +49,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function HorseForm(props) {
-    const classes = useStyles();
-    const [values, setValues] = useState(initialHorseInfo)
-    debugger
-    const handleOnChange = (e) => {
-        const {name, value} = e.target
-        setValues({
-            ...values,
-            [name]:value
-        })
-    }
+  const initialHorseInfo = {
+    id: localStorage.id,
+    name: localStorage.name,
+    location: localStorage.location,
+    gender: localStorage.gender,
+    size: localStorage.size,
+    color: localStorage.color,
+    foal_date: localStorage.foal_date,
+    profile_picture: localStorage.profile_picture,
+    video: localStorage.video, 
+    temperment: localStorage.temperment,
+    description: localStorage.description
+}
+
+const classes = useStyles();
+const [values, setValues] = useState(initialHorseInfo)
+const history = useHistory()
+const handleOnChange = (e) => {
+  const {name, value} = e.target
+  setValues({
+    ...values,
+    [name]:value
+  })
+}
     // const loggedInUser = useSelector(state => state.app_user)
     const dispatch = useDispatch()
     const handleOnSubmit = (e) => {
     e.preventDefault()
-    props.user ? (values.user_id = `${props.user.id}`) : (values.user_id="0")
+    debugger
+    localStorage.user_id ? (values.user_id = `${localStorage.user_id}`) : (values.user_id="0")
     values.breed_id = `${(1 + Math.floor((Math.random()*1500)))}`
     dispatch(fetchUpdateHorse(values))
+    history.push("/horses")
   }
   return (
     <Container component="main" maxWidth="xs">
