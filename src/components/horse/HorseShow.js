@@ -31,18 +31,26 @@ const HorseShow = ({horse, id, removeHorse, user}) => {
 
             { !!user.id && (user.id === horse.user.id)  ?
                     <div>
-                        <Link to={`/horses/${id}`}>
-                            <Button>{horse.name}'s Page</Button>
-                        </Link>
+                    <Link to={`/horses/`}>
+                        <Button>Horses Page</Button>
+                    </Link>
+                    <Link to={`/`}>
+                        <Button>Home</Button>
+                    </Link>
                         <Button onClick={deleteOnClick}>Remove {horse.name}</Button>
                         <Link to={`/horses/edit/${id}`}>
                             <Button>Update {horse.name}</Button>
                         </Link>
                     </div>
                     :
-                    <Link to={`/horses/${id}`}>
-                        <Button>{horse.name}'s Page</Button>
+                    <>
+                    <Link to={`/horses/`}>
+                        <Button>Horses Page</Button>
                     </Link>
+                    <Link to={`/`}>
+                        <Button>Home</Button>
+                    </Link>
+                    </>
                     }
         </>
     )

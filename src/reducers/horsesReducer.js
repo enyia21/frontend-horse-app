@@ -14,12 +14,10 @@ const horsesReducer = (state={
             return {...state, selectedHorse: action.payload, loading: false}
         case "UPDATE_HORSE":
             const temp = state.horses.filter(horse => horse.id !== action.payload.id)
-            debugger
             return {...state, horses: [...temp, action.payload], loading: false}
         case "UNLOAD_HORSE":
             return {...state, selectedHorse: action.payload, loading: false}
         case "REMOVE_HORSE":
-            debugger
             return {...state, horses: state.horses.filter(horse => horse.id !== action.payload.id), loading: false}
         default: 
             return state

@@ -6,13 +6,19 @@ import {fetchHorses} from './actions/horseActionCreators'
 class Home extends Component {
     render() {
         debugger;
+        const userHorses = this.props.horses.filter(horse => horse.user.id == this.props.user.id)
         return (
             <>
                 <div>
                     <h2>Welcome to the Horse App Home Page</h2>
                     {
                         !!this.props.user.id ? 
-                            `Welcome to your horse app ${this.props.user.first_name}`
+                        <div>
+                            <h3>
+                                {`Welcome to your horse app ${this.props.user.first_name}`}
+                            </h3>
+                            {}
+                        </div>
                         : 
                         <div>
                             <p>Horse Search Bar</p>

@@ -16,7 +16,6 @@ export const fetchUsers = () => {
 export const fetchLoginUser = (user_login) =>  {
     const { username, password} = user_login;
     const login_params = {username: username, password: password}
-    debugger
     return (dispatch) => {
         dispatch(LOADING);
         fetch(BASE_URL + '/login', {

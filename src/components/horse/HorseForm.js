@@ -74,7 +74,8 @@ export default function HorseForm(props) {
     const dispatch = useDispatch()
     const handleOnSubmit = (e) => {
     e.preventDefault()
-    localStorage.user_id ? (values.user_id = `${localStorage.user_id}`) : (values.user_id="0")
+
+    props.user ? (values.user_id = `${props.user.id}`) : (values.user_id="0")
     values.breed_id = `${(1 + Math.floor((Math.random()*1500)))}`
     dispatch(fetchCreateNewHorse(values))
     history.push("/horses")

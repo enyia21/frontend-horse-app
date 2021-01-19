@@ -18,6 +18,7 @@ const usersReducer = (state=initialState, action) => {
                 app_user: action.payload,
                 loading: false,
                 loggedIn: false
+                
             }
         case 'LOGOUT_USER':
             return {...state, 

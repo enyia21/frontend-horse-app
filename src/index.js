@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 //Redux 
 import {Provider} from 'react-redux'
+
 //asynchronous actions from redux
 import thunk from 'redux-thunk'
 
@@ -15,6 +16,10 @@ import {createStore, compose, applyMiddleware} from 'redux'
 
 //created reducer
 import  reducer  from './reducers/reducer'
+
+//Create theme
+import {ThemeProvider} from '@material-ui/core/styles';
+import theme from './theme'
 
 //built the store
 const store = createStore(reducer, compose(
@@ -26,7 +31,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </Provider>
     </Router>
   </React.StrictMode>,

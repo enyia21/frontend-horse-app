@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 //Horse Containers
-import HorsesPage from './containers/horse/HorsesPage'
+import HorsesPage2 from './containers/horse/HorsesPage2'
 import HorsePage from './containers/horse/HorsePage'
 //Navigation
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -14,7 +14,8 @@ import { connect } from 'react-redux'
 import SignupForm from './containers/user/SignupForm'
 import Login from './containers/user/Login'
 import Logout from './containers/user/Logout'
-import Home from './Home'
+import Homepage from './Homepage'
+
 import ButtonAppBar from './components/navigation/ButtonAppBar'
 import HorseForm from './components/horse/HorseForm'
 import UpdateHorse from './components/horse/UpdateHorse';
@@ -30,18 +31,19 @@ class App extends Component{
     if ((this.props.loading || this.props.loading===undefined) && (this.props.horses.length === 0)){
       return <div>Loading...</div>
     }else{
+      debugger
       return (
         <>
           <ButtonAppBar loggedIn={this.props.loggedIn}/>
           <Switch>
-              <Route exact path="/horses" render={()=> <HorsesPage horses={this.props.horses}/>} />
+              <Route exact path="/horses" render={()=> <HorsesPage2 horses={this.props.horses} useTitle={true}/>} />
               <Route exact path="/horses/new" render={()=> <HorseForm user={this.props.user}/>} />
               <Route exact path="/horses/:id" component={HorsePage} />
               <Route exact path="/horses/edit/:id" component={UpdateHorse}/>
               <Route exact path='/users/new' render={() => (this.props.loggedIn ? <Redirect to="/" /> : <SignupForm />) } />
               <Route exact path='/login' render={() => (this.props.loggedIn ? <Redirect to="/" /> : <Login />) } />
               <Route exact path='/logout' component={Logout} />
-              <Route exact path='/' render={()=> <Home user={this.props.user} horses={this.props.horses}/>} />
+              <Route exact path='/' render={()=> <Homepage user={this.props.user} horses={this.props.horses.filter((horse)=> horse.user.id == this.props.user.id)} />} />
           </Switch>
         </>
         )
