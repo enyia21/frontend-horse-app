@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {fetchCreateNewUser} from '../../actions/userActionCreators'
 import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -59,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const [values, setValues] = useState(initialSignup)
+  const history = useHistory()
   const handleOnChange = (e) => {
     const {name, value} = e.target
     setValues({
@@ -70,7 +72,8 @@ export default function SignUp() {
   const dispatch = useDispatch()
   const handleOnSubmit = (e) => {
     e.preventDefault()
-    dispatch(fetchCreateNewUser(values))
+    dispatch(fetchCreateNewUser(values));
+    history.push('/')
   }
   return (
     <Container component="main" maxWidth="xs">
